@@ -11,15 +11,31 @@ CREDS_FILE="$CREDS_DIR/credentials"
 mkdir -p "$CREDS_DIR"
 chmod 700 "$CREDS_DIR" 2>/dev/null || true
 
+# Lee una contraseña mostrando un • por cada carácter (para saber cuántos llevas),
+# maneja backspace y Enter, y nunca deja la contraseña completa visible en pantalla.
+read_masked() {
+  local prompt="$1" secret="" ch
+  printf '%s' "$prompt" >&2
+  while IFS= read -rsn1 ch; do
+    [ -z "$ch" ] && break                        # Enter -> termina
+    if [ "$ch" = $'\177' ] || [ "$ch" = $'\b' ]; then   # backspace
+      [ -n "$secret" ] && { secret="${secret%?}"; printf '\b \b' >&2; }
+      continue
+    fi
+    secret+="$ch"
+    printf '•' >&2
+  done
+  printf '\n' >&2
+  MASKED_RESULT="$secret"
+}
+
 echo "Credenciales del sistema de guidelines de Growth (Hites)."
 echo "Se guardan solo en este equipo: $CREDS_FILE"
 echo
 
-# -r: no interpretar barras · -s: no mostrar la contraseña en pantalla
-read -r  -p "Usuario: " GG_USER
-echo "(La contraseña no se mostrará mientras la escribes — es normal, por seguridad. Tecléala o pégala y presiona Enter.)"
-read -rs -p "Contraseña: " GG_PASS
-echo
+read -r -p "Usuario: " GG_USER
+read_masked "Contraseña (verás un • por cada carácter): "
+GG_PASS="$MASKED_RESULT"
 
 if [ -z "${GG_USER:-}" ] || [ -z "${GG_PASS:-}" ]; then
   echo "Usuario o contraseña vacíos. No se guardó nada." >&2
