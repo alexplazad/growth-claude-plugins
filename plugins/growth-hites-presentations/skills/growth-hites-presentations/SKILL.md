@@ -60,11 +60,19 @@ leer/usar). Interpreta el estado:
 - `STATUS=UPDATED` — cambió; menciónalo y usa la versión nueva.
 - `STATUS=UNCHANGED` — ya tienes la última.
 - `STATUS=OFFLINE` — sin conexión; avisa que trabajas con el cache local y sigue.
-- `STATUS=NOCREDS` — primera vez / no hay credenciales guardadas. Pide al usuario que corra **una
-  sola vez, en su propia terminal**: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/setup_credentials.sh"`. Le
-  preguntará usuario y contraseña, las guardará en su equipo (chmod 600, fuera del repo) y no se las
-  volverá a pedir. **No le pidas la contraseña en el chat ni la escribas tú** — el setup la toma
-  directo en su terminal para que nunca pase por aquí. Cuando confirme, re-corre M0.
+- `STATUS=NOCREDS` — primera vez / sin credenciales guardadas. Para que sea **cero fricción real**:
+  1. **Resuelve la ruta concreta** del script: corre en tu entorno
+     `echo "${CLAUDE_PLUGIN_ROOT}/scripts/setup_credentials.sh"` y toma esa ruta absoluta. (En tu
+     entorno `${CLAUDE_PLUGIN_ROOT}` está definido; en la terminal del usuario **NO**, por eso debes
+     resolverla tú antes de dársela.)
+  2. Entrégale un comando **copy-paste con la ruta ya resuelta** (ej.:
+     `bash "/Users/<user>/.claude/plugins/cache/.../scripts/setup_credentials.sh"`) y explícale en una
+     línea: es de **una sola vez**, le preguntará usuario y contraseña **en su terminal**, se guarda en
+     su equipo y **no se le vuelve a pedir**.
+  3. **No le pidas la contraseña en el chat ni la escribas tú** — el setup la toma directo en su
+     terminal para que nunca pase por aquí. Cuando confirme que lo corrió, re-corre M0.
+  Nunca le pases el comando con `${CLAUDE_PLUGIN_ROOT}` sin resolver: en su terminal esa variable está
+  vacía y el comando fallaría.
 
 **Guarda el valor de `CACHE_PATH`**: apunta al documento vigente (descargado con credenciales y
 cacheado) que leerás en M1 y del que copiarás patrones. Este plugin **no incluye una copia interna**
