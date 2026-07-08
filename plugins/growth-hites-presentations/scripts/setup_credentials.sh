@@ -5,7 +5,8 @@
 # vuelve a pedirla. Estas credenciales NUNCA se guardan en el repo del plugin.
 set -euo pipefail
 
-CREDS_DIR="${GROWTH_GUIDELINES_CREDS_DIR:-${CLAUDE_PLUGIN_DATA:-$HOME/.config/growth-hites-guidelines}}"
+# Ruta FIJA (no depende de CLAUDE_PLUGIN_DATA): debe coincidir con la de fetch_guidelines.sh.
+CREDS_DIR="${GROWTH_GUIDELINES_CREDS_DIR:-$HOME/.config/growth-hites-guidelines}"
 CREDS_FILE="$CREDS_DIR/credentials"
 mkdir -p "$CREDS_DIR"
 chmod 700 "$CREDS_DIR" 2>/dev/null || true

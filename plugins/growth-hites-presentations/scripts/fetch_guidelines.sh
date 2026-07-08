@@ -32,7 +32,9 @@ report() { echo "$1"; echo "CACHE_PATH=$CACHE"; }
 
 # Credenciales, en orden: 1) variables de entorno; 2) archivo local que creó setup_credentials.sh.
 # Nunca vienen en el repo. Si no hay ninguna, se reporta NOCREDS y la skill guiará el setup.
-CREDS_FILE="${GROWTH_GUIDELINES_CREDS:-${CLAUDE_PLUGIN_DATA:-$HOME/.config/growth-hites-guidelines}/credentials}"
+# Ruta FIJA (no depende de CLAUDE_PLUGIN_DATA): debe coincidir con la de setup_credentials.sh,
+# porque el setup corre en la terminal del usuario y el fetch corre dentro de Claude Code.
+CREDS_FILE="${GROWTH_GUIDELINES_CREDS:-$HOME/.config/growth-hites-guidelines/credentials}"
 USER="${GROWTH_GUIDELINES_USER:-}"
 PASS="${GROWTH_GUIDELINES_PASS:-}"
 if { [ -z "$USER" ] || [ -z "$PASS" ]; } && [ -f "$CREDS_FILE" ]; then
