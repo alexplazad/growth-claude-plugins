@@ -17,6 +17,7 @@ echo
 
 # -r: no interpretar barras · -s: no mostrar la contraseña en pantalla
 read -r  -p "Usuario: " GG_USER
+echo "(La contraseña no se mostrará mientras la escribes — es normal, por seguridad. Tecléala o pégala y presiona Enter.)"
 read -rs -p "Contraseña: " GG_PASS
 echo
 
