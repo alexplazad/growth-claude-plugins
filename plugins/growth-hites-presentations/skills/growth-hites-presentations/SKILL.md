@@ -60,9 +60,11 @@ leer/usar). Interpreta el estado:
 - `STATUS=UPDATED` — cambió; menciónalo y usa la versión nueva.
 - `STATUS=UNCHANGED` — ya tienes la última.
 - `STATUS=OFFLINE` — sin conexión; avisa que trabajas con el cache local y sigue.
-- `STATUS=NOCREDS` — faltan las credenciales (`GROWTH_GUIDELINES_USER` / `GROWTH_GUIDELINES_PASS`).
-  Como el plugin no incluye copia del documento, pide al usuario que las configure (ver "Nota sobre
-  credenciales") antes de construir.
+- `STATUS=NOCREDS` — primera vez / no hay credenciales guardadas. Pide al usuario que corra **una
+  sola vez, en su propia terminal**: `bash "${CLAUDE_PLUGIN_ROOT}/scripts/setup_credentials.sh"`. Le
+  preguntará usuario y contraseña, las guardará en su equipo (chmod 600, fuera del repo) y no se las
+  volverá a pedir. **No le pidas la contraseña en el chat ni la escribas tú** — el setup la toma
+  directo en su terminal para que nunca pase por aquí. Cuando confirme, re-corre M0.
 
 **Guarda el valor de `CACHE_PATH`**: apunta al documento vigente (descargado con credenciales y
 cacheado) que leerás en M1 y del que copiarás patrones. Este plugin **no incluye una copia interna**
@@ -183,14 +185,17 @@ Actívalos vía el archivo de preferencias o a pedido en el chat. No son obligat
 
 ## Nota sobre credenciales
 
-Por seguridad, el plugin **no incluye la contraseña** (este repo se comparte). Cada usuario necesita
-las credenciales del sitio de guidelines, vía variables de entorno:
-`GROWTH_GUIDELINES_USER` y `GROWTH_GUIDELINES_PASS`. Dos formas:
+Por seguridad, el plugin **no incluye la contraseña** (este repo es público). Cada usuario la
+configura **una sola vez**; después la skill la usa sola y no vuelve a pedirla. En orden de comodidad:
 
-- **Recomendada (equipo):** un admin las pone en el bloque `env` de la configuración administrada,
-  y le llegan a todos sin que cada quien haga nada.
-- **Individual:** cada persona las exporta una vez en su shell (`~/.zshrc` / `~/.bashrc`).
+- **Setup de una vez (recomendado):** ante `NOCREDS`, la skill guía a correr en la terminal
+  `bash "${CLAUDE_PLUGIN_ROOT}/scripts/setup_credentials.sh"`, que pide usuario y contraseña **en la
+  propia terminal** (nunca en el chat) y las guarda en el equipo con permisos 600. No tocan el repo
+  ni pasan por la IA.
+- **Equipo, cero toque:** un admin puede poner `GROWTH_GUIDELINES_USER/PASS` en el bloque `env` de la
+  configuración administrada y le llegan a todos automáticamente.
+- **Manual:** exportarlas en `~/.zshrc` / `~/.bashrc`.
 
-Si faltan, el script devuelve `STATUS=NOCREDS` y, como este plugin no incluye copia del documento,
-no se puede construir hasta configurarlas. Si el equipo cambia la contraseña, se actualiza en ese
-mismo lugar.
+La skill resuelve credenciales en ese orden: variables de entorno → archivo guardado por el setup. Si
+no hay ninguna, reporta `STATUS=NOCREDS`. Si el equipo cambia la contraseña, se vuelve a correr el
+setup.

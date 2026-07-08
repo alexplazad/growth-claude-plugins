@@ -23,20 +23,23 @@ En una terminal interactiva de Claude Code:
 Para que el equipo lo tenga sin pasos manuales, un admin puede fijarlo en la configuración
 administrada (`extraKnownMarketplaces` + `enabledPlugins`) con `autoUpdate: true`.
 
-## Credenciales (requeridas)
+## Credenciales (una sola vez)
 
-Por seguridad, el plugin **no incluye la contraseña** del sitio de guidelines. Cada usuario define:
+Por seguridad, el plugin **no incluye la contraseña** del sitio de guidelines. Cada persona la
+configura **una vez** y la skill la usa sola desde ahí (no se vuelve a pedir).
 
-```bash
-export GROWTH_GUIDELINES_USER="growth.hites"
-export GROWTH_GUIDELINES_PASS="•••"   # pídela al equipo; no la escribas en el repo
-```
+- **Setup guiado (recomendado):** la primera vez, la skill te pedirá correr en tu terminal:
+  ```bash
+  bash "${CLAUDE_PLUGIN_ROOT}/scripts/setup_credentials.sh"
+  ```
+  Pregunta usuario y contraseña **en tu terminal** (nunca en el chat) y las guarda en tu equipo con
+  permisos `600`. No tocan el repo.
+- **Equipo, cero toque:** un admin puede ponerlas en el bloque `env` de la configuración administrada
+  (`GROWTH_GUIDELINES_USER` / `GROWTH_GUIDELINES_PASS`) y le llegan a todos.
+- **Manual:** exportarlas en `~/.zshrc` / `~/.bashrc`.
 
-- **Recomendado (equipo):** distribuirlas por el bloque `env` de la configuración administrada.
-- **Individual:** exportarlas en `~/.zshrc` / `~/.bashrc`.
-
-Este repo **no incluye** el documento de guidelines (es contenido interno); la skill lo descarga en
-runtime con las credenciales y lo cachea localmente. Sin credenciales, la skill avisa y no construye.
+Este repo **no incluye** el documento de guidelines (es contenido interno); la skill lo baja en
+runtime con las credenciales y lo cachea localmente.
 
 ## Actualizaciones
 

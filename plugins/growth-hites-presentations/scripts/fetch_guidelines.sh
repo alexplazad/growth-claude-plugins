@@ -30,10 +30,19 @@ if [ ! -f "$CACHE" ] && [ -f "$SEED" ]; then cp "$SEED" "$CACHE" 2>/dev/null || 
 
 report() { echo "$1"; echo "CACHE_PATH=$CACHE"; }
 
+# Credenciales, en orden: 1) variables de entorno; 2) archivo local que creó setup_credentials.sh.
+# Nunca vienen en el repo. Si no hay ninguna, se reporta NOCREDS y la skill guiará el setup.
+CREDS_FILE="${GROWTH_GUIDELINES_CREDS:-${CLAUDE_PLUGIN_DATA:-$HOME/.config/growth-hites-guidelines}/credentials}"
 USER="${GROWTH_GUIDELINES_USER:-}"
 PASS="${GROWTH_GUIDELINES_PASS:-}"
+if { [ -z "$USER" ] || [ -z "$PASS" ]; } && [ -f "$CREDS_FILE" ]; then
+  # shellcheck disable=SC1090
+  . "$CREDS_FILE"
+  USER="${GROWTH_GUIDELINES_USER:-}"
+  PASS="${GROWTH_GUIDELINES_PASS:-}"
+fi
 if [ -z "$USER" ] || [ -z "$PASS" ]; then
-  echo "Faltan credenciales: exporta GROWTH_GUIDELINES_USER y GROWTH_GUIDELINES_PASS." >&2
+  echo "Sin credenciales. Corre una vez setup_credentials.sh (o exporta GROWTH_GUIDELINES_USER/PASS)." >&2
   report "STATUS=NOCREDS"; exit 0
 fi
 
