@@ -203,7 +203,8 @@ el stage/navegación de deck. Tú tienes libertad total de layout; solo mantén 
    - **No abras el archivo por tu cuenta**: solo **ofrece** abrirlo y **espera el OK** del usuario.
      Cuando lo abras, usa el comando del sistema operativo correcto: `open` (macOS), `xdg-open`
      (Linux) o `start` (Windows).
-   - Si piden `.pptx` editable, es un paso secundario; el formato nativo y fiel es el HTML.
+   - El entregable es el HTML autocontenido. **No ofrezcas proactivamente** exportarlo a otros
+     formatos; solo si el usuario lo pide explícitamente, ayúdalo.
 
 ---
 
