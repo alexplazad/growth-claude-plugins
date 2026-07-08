@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Credenciales locales — NUNCA se commitean
+.env
+*.env
+credentials*
+*.secret
