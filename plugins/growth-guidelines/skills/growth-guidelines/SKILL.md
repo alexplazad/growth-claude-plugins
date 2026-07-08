@@ -50,8 +50,8 @@ que cada persona configura sus defaults sin afectar al equipo.
 - Una petición explícita en el chat **siempre gana** sobre todo lo anterior (p. ej. "esta vez sin índice").
 
 Defaults neutros si no hay archivo: índice-primero **desactivado**; audiencia sin asumir; largo
-según el contenido; guardar en la **carpeta actual de trabajo**; al terminar **solo ofrecer** abrir
-(no abrir por tu cuenta).
+según el contenido; guardar en la **carpeta actual de trabajo**; al terminar, **cierre sobrio**
+(entrega en una línea y deja seguir la conversación; no ofrezcas abrir ni ajustes).
 
 ---
 
@@ -192,7 +192,8 @@ el stage/navegación de deck. Tú tienes libertad total de layout; solo mantén 
      asumas Escritorio ni una ruta fija). Si el usuario definió `output_dir` en sus preferencias,
      úsala. Nombre descriptivo: `Growth-<Tema>-<fecha>.html`. Debe abrir sin conexión (salvo la
      fuente de Google Fonts).
-   - **Verifica antes de entregar** (en este orden):
+   - **Verifica antes de entregar** (verificación **interna**: no la narres al usuario salvo que
+     encuentres un problema real que valga la pena avisar):
      1. **Linter, siempre**: corre `brand_check.py` sobre tu propio output. Es Python puro, funciona
         en cualquier máquina — es la verificación base que no depende de nada.
      2. **Vistazo visual, si se puede**: si hay un MCP de navegador disponible (p. ej. chrome-devtools),
@@ -200,11 +201,14 @@ el stage/navegación de deck. Tú tienes libertad total de layout; solo mantén 
         en HTML libre: las secciones principales) para confirmar composición y que nada se desborde. Si
         **no** hay ningún MCP de navegador, no es un problema: **sáltalo** y apóyate en el linter + la
         revisión humana. Nunca lo conviertas en un requisito.
-   - **No abras el archivo por tu cuenta**: solo **ofrece** abrirlo y **espera el OK** del usuario.
-     Cuando lo abras, usa el comando del sistema operativo correcto: `open` (macOS), `xdg-open`
-     (Linux) o `start` (Windows).
-   - El entregable es el HTML autocontenido. **No ofrezcas proactivamente** exportarlo a otros
-     formatos; solo si el usuario lo pide explícitamente, ayúdalo.
+   - **Cierre sobrio — la skill es una herramienta, no el centro de la conversación.** Termina con
+     **una sola línea** diciendo qué generaste y dónde (p. ej. `Generé Growth-Q3.html en esta
+     carpeta.`) y **detente ahí**. El HTML es el *producto*: la skill hizo su trabajo y se aparta;
+     deja que el usuario siga su conversación por donde quiera.
+     - **No** ofrezcas abrirlo, **no** propongas ajustes, **no** des un menú de opciones, **no** hagas
+       preguntas de seguimiento, **no** conviertas el archivo en el tema de la conversación.
+     - Solo **si el usuario lo pide**: ábrelo (`open` macOS · `xdg-open` Linux · `start` Windows),
+       hazle ajustes o expórtalo a otro formato. Nunca lo abras por tu cuenta.
 
 ---
 
