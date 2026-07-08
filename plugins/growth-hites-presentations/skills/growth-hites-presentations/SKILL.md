@@ -60,14 +60,15 @@ leer/usar). Interpreta el estado:
 - `STATUS=UPDATED` — cambió; menciónalo y usa la versión nueva.
 - `STATUS=UNCHANGED` — ya tienes la última.
 - `STATUS=OFFLINE` — sin conexión; avisa que trabajas con el cache local y sigue.
-- `STATUS=NOCREDS` — faltan las credenciales (`GROWTH_GUIDELINES_USER` / `GROWTH_GUIDELINES_PASS`);
-  avisa al usuario que las configure (ver "Nota sobre credenciales") y trabaja con el seed incluido.
+- `STATUS=NOCREDS` — faltan las credenciales (`GROWTH_GUIDELINES_USER` / `GROWTH_GUIDELINES_PASS`).
+  Como el plugin no incluye copia del documento, pide al usuario que las configure (ver "Nota sobre
+  credenciales") antes de construir.
 
-**Guarda el valor de `CACHE_PATH`**: es el documento vigente que leerás en M1 y del que copiarás
-patrones. Si por algo no lo tienes, cae al seed incluido:
-`${CLAUDE_PLUGIN_ROOT}/assets/design-guidelines.html`. Ese HTML **es a la vez la plantilla y la
-referencia**: contiene el `<style>` y el `<script>` que dan vida al deck y 36 láminas de ejemplo que
-demuestran cada patrón.
+**Guarda el valor de `CACHE_PATH`**: apunta al documento vigente (descargado con credenciales y
+cacheado) que leerás en M1 y del que copiarás patrones. Este plugin **no incluye una copia interna**
+del documento; si el estado es `NOCREDS`, u `OFFLINE` sin cache previo, pide al usuario las
+credenciales antes de seguir. Ese HTML **es a la vez la plantilla y la referencia**: contiene el
+`<style>` y el `<script>` que dan vida al deck y 36 láminas de ejemplo que demuestran cada patrón.
 
 ### M1 — Aprende el sistema
 
@@ -190,5 +191,6 @@ las credenciales del sitio de guidelines, vía variables de entorno:
   y le llegan a todos sin que cada quien haga nada.
 - **Individual:** cada persona las exporta una vez en su shell (`~/.zshrc` / `~/.bashrc`).
 
-Si faltan, el script devuelve `STATUS=NOCREDS` y se trabaja con el seed incluido (puede estar
-desactualizado). Si el equipo cambia la contraseña, se actualiza en ese mismo lugar.
+Si faltan, el script devuelve `STATUS=NOCREDS` y, como este plugin no incluye copia del documento,
+no se puede construir hasta configurarlas. Si el equipo cambia la contraseña, se actualiza en ese
+mismo lugar.

@@ -35,7 +35,8 @@ export GROWTH_GUIDELINES_PASS="•••"   # pídela al equipo; no la escribas 
 - **Recomendado (equipo):** distribuirlas por el bloque `env` de la configuración administrada.
 - **Individual:** exportarlas en `~/.zshrc` / `~/.bashrc`.
 
-Sin credenciales, la skill trabaja con la copia semilla incluida (puede estar desactualizada).
+Este repo **no incluye** el documento de guidelines (es contenido interno); la skill lo descarga en
+runtime con las credenciales y lo cachea localmente. Sin credenciales, la skill avisa y no construye.
 
 ## Actualizaciones
 
@@ -50,6 +51,6 @@ plugins/growth-hites-presentations/
 ├── .claude-plugin/plugin.json           # manifiesto del plugin
 ├── skills/growth-hites-presentations/SKILL.md
 ├── scripts/   (fetch_guidelines.sh · assemble_deck.py · brand_check.py)
-├── references/design-system.md
-└── assets/design-guidelines.html        # copia semilla (se refresca en runtime)
+├── references/design-system.md          # resumen destilado de tokens y reglas
+└── assets/                              # sin copia interna; el documento se baja en runtime
 ```
