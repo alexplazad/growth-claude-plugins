@@ -3,8 +3,8 @@
   "owner": { "name": "Growth · Hites" },
   "plugins": [
     {
-      "name": "growth-hites-presentations",
-      "source": "./plugins/growth-hites-presentations",
+      "name": "growth-guidelines",
+      "source": "./plugins/growth-guidelines",
       "description": "Genera y audita presentaciones on-brand de Growth Hites, con la guía de diseño siempre actualizada."
     }
   ]

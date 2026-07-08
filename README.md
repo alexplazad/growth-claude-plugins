@@ -4,7 +4,7 @@ Marketplace de plugins de Claude Code del equipo de Growth (Hites).
 
 ## Plugins
 
-### `growth-hites-presentations`
+### `growth-guidelines`
 Genera y audita **presentaciones/decks on-brand** siguiendo el sistema de diseño de Growth.
 Descarga sola la última versión vigente de las guidelines antes de trabajar, así que siempre produce
 material actualizado. Incluye un revisor de marca (linter) para auditar decks existentes.
@@ -15,7 +15,7 @@ En una terminal interactiva de Claude Code:
 
 ```
 /plugin marketplace add alexplazad/growth-claude-plugins
-/plugin install growth-hites-presentations@growth-hites-plugins
+/plugin install growth-guidelines@growth-hites-plugins
 ```
 
 > Reemplaza `alexplazad/growth-claude-plugins` por el slug real del repo si es distinto.
@@ -50,9 +50,9 @@ Si no, cada quien corre `/plugin marketplace update`.
 
 ```
 .claude-plugin/marketplace.json          # lista de plugins del marketplace
-plugins/growth-hites-presentations/
+plugins/growth-guidelines/
 ├── .claude-plugin/plugin.json           # manifiesto del plugin
-├── skills/growth-hites-presentations/SKILL.md
+├── skills/growth-guidelines/SKILL.md
 ├── scripts/   (fetch_guidelines.sh · assemble_deck.py · brand_check.py)
 ├── references/design-system.md          # resumen destilado de tokens y reglas
 └── assets/                              # sin copia interna; el documento se baja en runtime

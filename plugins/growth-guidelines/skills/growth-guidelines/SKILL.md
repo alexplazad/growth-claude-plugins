@@ -1,5 +1,5 @@
 ---
-name: growth-hites-presentations
+name: growth-guidelines
 description: >-
   Genera y audita presentaciones/decks on-brand del equipo de Growth de Hites (paleta,
   tipografía Plus Jakarta Sans, componentes, diagramas héroe y animaciones). Descarga sola
