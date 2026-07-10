@@ -18,7 +18,7 @@ set -euo pipefail
 
 URL="https://growth-guidelines.pages.dev/design-guidelines"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SEED="$SCRIPT_DIR/../assets/design-guidelines.html"   # copia semilla que viene con el plugin (solo lectura)
+SEED="$SCRIPT_DIR/../assets/design-guidelines.html"   # legacy/opcional: si existe una copia local, sirve como seed
 
 # Cache editable y persistente entre updates del plugin.
 CACHE_DIR="${CLAUDE_PLUGIN_DATA:-$HOME/.cache/growth-hites-guidelines}"

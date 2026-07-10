@@ -5,7 +5,7 @@
     {
       "name": "growth-guidelines",
       "source": "./plugins/growth-guidelines",
-      "description": "Genera y audita presentaciones on-brand de Growth Hites, con la guía de diseño siempre actualizada."
+      "description": "Crea y audita HTML on-brand de Growth Hites (decks, páginas web, 16:9, landings y documentos), con la guía de diseño siempre actualizada."
     }
   ]
 }

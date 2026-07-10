@@ -1,10 +1,10 @@
 # Sistema de diseño — Growth · Hites (referencia destilada)
 
 Este archivo resume las reglas del sistema. La **fuente de verdad completa** (CSS, JS y
-todos los componentes con su markup real) es `assets/design-guidelines.html`. Cuando
-necesites el markup exacto de un componente, ábrelo y copia la sección correspondiente:
-está organizado en 36 láminas, cada una demostrando un patrón, con bloques
-`/* ===== NOMBRE ===== */` en el `<style>` que puedes buscar por nombre.
+todos los componentes con su markup real) es el HTML descargado por `fetch_guidelines.sh`, indicado
+por `CACHE_PATH`. Cuando necesites el markup exacto de un componente, no abras el documento completo:
+usa `extract.py --cache "$CACHE_PATH" --list`, `--slide N` o `--find palabra` para traer solo el
+snippet necesario. El documento está organizado en 36 láminas, cada una demostrando un patrón.
 
 ## Principio rector
 
@@ -14,21 +14,23 @@ La navegación es el clic, **nunca una flecha decorativa**.
 
 ## Tokens (única fuente de verdad — no inventes valores)
 
-**Stage**: todo el deck vive en un escenario fijo de **1280×720** que se escala al viewport
-(`#stage` + función `fit()` en el `<script>`). No cambies estas dimensiones.
+**Stage (solo decks)**: todo deck vive en un escenario fijo de **1280×720** que se escala al viewport
+(`#stage` + función `fit()` en el `<script>`). Para HTML libre (web, landing, documento, 16:9 suelto),
+usa los mismos tokens y tipografía, pero no necesitas el stage.
 
 **Radios**: `--r-pill:999px` `--r-card:20px` `--r-box:16px` `--r-sm:12px` `--r-xs:4px`
 
 **Paleta base**:
 - Azules: `--blue:#0058BA` `--royal:#2559BE` `--navy:#15137E` `--deep:#002492`
 - Naranjo (acento primario): `--orange:#FA8100` `--orange-hi:#FFA64D` `--orange-soft:#FFF1E2` `--orange-deep:#E85D00`
-- Magenta (SOLO destacador de texto/borde, **jamás relleno**): `--magenta:#FA1EB3` `--magenta-soft:#FFE8F6`
+- Magenta (default on-brand: destacador de texto/borde, no relleno): `--magenta:#FA1EB3` `--magenta-soft:#FFE8F6`
 - Rojo (identidad de Analytics): `--red:#EA2E3B` `--red-soft:#FFE9EA`
 - Neutros: `--gray:#8490A0` `--white:#FFFFFF` `--ink:#22262E` `--muted:#5C6675` `--line:#DEE6F0` `--blue-soft:#EAF2FB` `--grid:#E6EEF8` `--backdrop:#0A1430`
 
 **Tipografía**: una sola familia, **Plus Jakarta Sans** (400–800). Escala única por clases
 `.fs-*`: `--fs-hero:124px` `--fs-sep:88px` `--fs-q:58px` `--fs-title:46px` `--fs-lead:24px`
-`--fs-sub:20px` `--fs-body:17px` `--fs-small:14px` `--fs-note:13px`. No uses tamaños fuera de esta escala.
+`--fs-sub:20px` `--fs-body:17px` `--fs-small:14px` `--fs-note:13px`. Por default, evita tamaños fuera
+de esta escala.
 
 **Colores de función** (los 4 frentes de Growth): adquisición `.adq`, retención `.ret`,
 monetización `.mon`, social/`.so`. Se usan en chips y acentos.
@@ -48,7 +50,7 @@ monetización `.mon`, social/`.so`. Se usan en chips y acentos.
 ## Inventario de componentes (busca su bloque en el HTML por nombre)
 
 **Texto y datos**
-- Destacador magenta: solo texto, jamás fondo.
+- Destacador magenta: por default, solo texto/borde; no fondo.
 - Cifra héroe: gran número con gradiente y glow. Puede usar `.cup` (count-up animado desde 0).
 - Bullets: marcador **cuadrado** de precisión, nunca flechas.
 - Firmas matemáticas / signatures: `Σ μ σ Δ % ρ`.
@@ -60,7 +62,8 @@ monetización `.mon`, social/`.so`. Se usan en chips y acentos.
 **Diagramas héroe** (el corazón del impacto — grandes, centrados, nunca adornos diminutos):
 - **Loop/ciclo**: circular; nodo con número centrado dentro y label radial afuera (`.loop-ring`).
 - **Mapa del motor / engranajes**: funciones como bloques en circuito, flechas de flujo de
-  **punta redondeada** (`marker #motorArrow`) — único lugar del deck con flechas dibujadas.
+  **punta redondeada** (`marker #motorArrow`) — único lugar del deck donde las flechas dibujadas son
+  parte del sistema.
 - **Journey**: línea de vida con hitos luminosos.
 - **Árbol de decisión**: ramificación con nodos; salidas como cards.
 - **Matriz 2×2**: cuadrantes con profundidad; el ganador con glow.
@@ -77,7 +80,8 @@ borde, siempre SVG. Logos Hites en base64 (`.lgb` azul para fondos claros, `.lgw
 — única excepción raster. Logo del equipo: `∫` monolínea sobre squircle.
 
 **Navegación**: índice clickeable (`.toc` / `.tocitem` con `data-goto`), botón global `#toindex`,
-anexos (`.aref` link, `.term` subrayado, `.aback` volver). Ningún elemento de navegación es una flecha.
+anexos (`.aref` link, `.term` subrayado, `.aback` volver). Por default, evita flechas decorativas en
+navegación.
 
 ## Animaciones (una sola batería, con propósito)
 
@@ -90,8 +94,11 @@ anexos (`.aref` link, `.term` subrayado, `.aback` volver). Ningún elemento de n
 
 ## Reglas que más se rompen (revísalas siempre)
 
-1. **Magenta jamás de relleno** — solo texto o borde de acento.
-2. **Flechas**: solo las del mapa del motor (punta redondeada). En bullets y navegación, nunca.
-3. **Área útil**: si no cabe, nueva lámina. No encoger.
-4. **Una sola tipografía y una sola escala** `.fs-*`. Sin tamaños ad-hoc.
+1. **Magenta de relleno** — por default, úsalo solo como texto o borde de acento.
+2. **Flechas** — por default, solo las del mapa del motor (punta redondeada); evita flechas en bullets y navegación.
+3. **Área útil** — si no cabe, nueva lámina. No encoger.
+4. **Una sola tipografía y una sola escala** `.fs-*`. Evita tamaños ad-hoc.
 5. Diagramas estructurantes son el **héroe** de su lámina: grandes y centrados, no miniaturas.
+
+Estas reglas definen el default on-brand. Si el usuario pide explícitamente romper una regla, advierte
+una vez y aplica su decisión.

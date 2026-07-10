@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Linter de marca para decks de Growth (Hites). Pasada MECÁNICA del Modo REVISAR: detecta lo que se
+Linter de marca para HTML de Growth (Hites). Pasada MECÁNICA del Modo REVISAR: detecta lo que se
 puede verificar objetivamente. La pasada de criterio (composición, jerarquía, diagramas héroe) la
 hace Claude leyendo references/design-system.md.
 
-Revisa SOLO el contenido de autor (estilos inline y texto de las láminas). Ignora a propósito los
+Revisa SOLO el contenido de autor (estilos inline y texto visible). Ignora a propósito los
 bloques <style> y <script> del shell oficial, que sí definen tokens/magenta/hex legítimamente.
 
-Uso:  python3 brand_check.py <deck.html>
+Uso:  python3 brand_check.py <archivo.html>
 Salida: una línea por hallazgo (con nº de línea) y un SUMMARY final. Exit 1 si hay VIOLATION.
 """
 import re
@@ -42,7 +42,7 @@ def hexes(s):
 
 def main():
     if len(sys.argv) < 2:
-        sys.exit("Uso: brand_check.py <deck.html>")
+        sys.exit("Uso: brand_check.py <archivo.html>")
     path = sys.argv[1]
     text = open(path, encoding="utf-8").read()
     lines = text.split("\n")
@@ -63,7 +63,7 @@ def main():
                 m = re.search(prop + r"\s*:\s*([^;]+)", low)
                 if m and any(tok in m.group(1) for tok in MAGENTA):
                     violations.append((i, "MAGENTA_FILL",
-                                       f"magenta usado en '{prop}' (jamás de relleno; solo texto/borde)"))
+                                       f"magenta usado en '{prop}' (default on-brand: texto/borde, no relleno)"))
 
             # 2) font-size inline fuera de la escala .fs-* -> WARNING.
             # El sistema oficial SÍ usa ajustes inline puntuales (p. ej. achicar una cifra héroe

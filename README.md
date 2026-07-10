@@ -5,9 +5,10 @@ Marketplace de plugins de Claude Code del equipo de Growth (Hites).
 ## Plugins
 
 ### `growth-guidelines`
-Genera y audita **presentaciones/decks on-brand** siguiendo el sistema de diseño de Growth.
-Descarga sola la última versión vigente de las guidelines antes de trabajar, así que siempre produce
-material actualizado. Incluye un revisor de marca (linter) para auditar decks existentes.
+Crea y audita **HTML on-brand** usando el sistema de diseño de Growth: decks/presentaciones,
+páginas web, formatos 16:9, landings y documentos HTML. Descarga sola la última versión vigente de
+las guidelines antes de trabajar, así que siempre produce material actualizado. Incluye un revisor de
+marca (linter) para auditar HTML existente.
 
 ## Instalación (una vez por persona)
 
@@ -17,6 +18,9 @@ En una terminal interactiva de Claude Code:
 /plugin marketplace add alexplazad/growth-claude-plugins
 /plugin install growth-guidelines@growth-hites-plugins
 ```
+
+Cuando pregunte el scope de instalación, elige **Install for you (user scope)**. Eso deja el plugin
+disponible en todos tus chats/proyectos de esta máquina.
 
 > Reemplaza `alexplazad/growth-claude-plugins` por el slug real del repo si es distinto.
 
@@ -28,12 +32,13 @@ administrada (`extraKnownMarketplaces` + `enabledPlugins`) con `autoUpdate: true
 Por seguridad, el plugin **no incluye la contraseña** del sitio de guidelines. Cada persona la
 configura **una vez** y la skill la usa sola desde ahí (no se vuelve a pedir).
 
-- **Setup guiado (recomendado):** la primera vez, la skill te pedirá correr en tu terminal:
+- **Setup guiado (una vez):** después de instalar, corre en tu terminal normal:
   ```bash
-  bash "${CLAUDE_PLUGIN_ROOT}/scripts/setup_credentials.sh"
+  bash "$(find ~/.claude/plugins -name setup_credentials.sh -path '*growth-guidelines*' | head -1)"
   ```
   Pregunta usuario y contraseña **en tu terminal** (nunca en el chat) y las guarda en tu equipo con
-  permisos `600`. No tocan el repo.
+  permisos `600`. La contraseña muestra un `•` por cada carácter escrito/pegado. No toca el repo ni
+  pasa por la IA.
 - **Equipo, cero toque:** un admin puede ponerlas en el bloque `env` de la configuración administrada
   (`GROWTH_GUIDELINES_USER` / `GROWTH_GUIDELINES_PASS`) y le llegan a todos.
 - **Manual:** exportarlas en `~/.zshrc` / `~/.bashrc`.
@@ -53,7 +58,8 @@ Si no, cada quien corre `/plugin marketplace update`.
 plugins/growth-guidelines/
 ├── .claude-plugin/plugin.json           # manifiesto del plugin
 ├── skills/growth-guidelines/SKILL.md
-├── scripts/   (fetch_guidelines.sh · assemble_deck.py · brand_check.py)
+├── scripts/   (fetch_guidelines.sh · setup_credentials.sh · extract.py · assemble_deck.py ·
+│               assemble_page.py · brand_check.py)
 ├── references/design-system.md          # resumen destilado de tokens y reglas
 └── assets/                              # sin copia interna; el documento se baja en runtime
 ```

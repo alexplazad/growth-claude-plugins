@@ -3,7 +3,7 @@
 Ensambla un deck on-brand completo reutilizando el shell del documento oficial de guidelines.
 
 Toma el <head> (fuente + <style> con tokens y componentes) y el <script> (escalado del stage,
-count-up, drawboxes, navegación) del cache `assets/design-guidelines.html`, e inserta tus láminas
+count-up, drawboxes, navegación) del HTML vigente indicado por --cache (normalmente CACHE_PATH), e inserta tus láminas
 dentro de #stage. Así NO reescribes el CSS de 132 KB a mano y garantizas fidelidad de marca.
 
 Uso:

@@ -1,6 +1,6 @@
 {
   "name": "growth-guidelines",
-  "description": "Genera y audita presentaciones/decks on-brand del equipo de Growth de Hites (paleta, tipografía, componentes, diagramas héroe y animaciones), descargando sola la última versión vigente de las guidelines.",
+  "description": "Crea y audita HTML on-brand del equipo de Growth de Hites (decks, páginas web, formatos 16:9, landings y documentos), descargando sola la última versión vigente de las guidelines.",
   "author": { "name": "Alex Plaza" },
   "homepage": "https://growth-guidelines.pages.dev/"
 }
